@@ -1,0 +1,649 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		92933B832108B04300CC1785 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92933B822108B04300CC1785 /* AppDelegate.m */; };
+		92933B862108B04300CC1785 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92933B852108B04300CC1785 /* ViewController.m */; };
+		92933B892108B04300CC1785 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92933B872108B04300CC1785 /* Main.storyboard */; };
+		92933B8B2108B04800CC1785 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92933B8A2108B04800CC1785 /* Assets.xcassets */; };
+		92933B8E2108B04800CC1785 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92933B8C2108B04800CC1785 /* LaunchScreen.storyboard */; };
+		92933B912108B04800CC1785 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92933B902108B04800CC1785 /* main.m */; };
+		92933B9B2108B04900CC1785 /* PWDataBridgeExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92933B9A2108B04900CC1785 /* PWDataBridgeExampleTests.m */; };
+		92933BA62108B04900CC1785 /* PWDataBridgeExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92933BA52108B04900CC1785 /* PWDataBridgeExampleUITests.m */; };
+		92933BB52108B11000CC1785 /* exampleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92933BB42108B11000CC1785 /* exampleModel.m */; };
+		CB96395C033FF5C59EA2E187 /* libPods-PWDataBridgeExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE778FA37F42749C0DC1ADED /* libPods-PWDataBridgeExample.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		92933B972108B04900CC1785 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92933B762108B04300CC1785 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92933B7D2108B04300CC1785;
+			remoteInfo = PWDataBridgeExample;
+		};
+		92933BA22108B04900CC1785 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92933B762108B04300CC1785 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92933B7D2108B04300CC1785;
+			remoteInfo = PWDataBridgeExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		42F0D37672878B2BC53A3A30 /* Pods-PWDataBridgeExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PWDataBridgeExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-PWDataBridgeExample/Pods-PWDataBridgeExample.release.xcconfig"; sourceTree = "<group>"; };
+		92933B7E2108B04300CC1785 /* PWDataBridgeExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PWDataBridgeExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		92933B812108B04300CC1785 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		92933B822108B04300CC1785 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		92933B842108B04300CC1785 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		92933B852108B04300CC1785 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		92933B882108B04300CC1785 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		92933B8A2108B04800CC1785 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		92933B8D2108B04800CC1785 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		92933B8F2108B04800CC1785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92933B902108B04800CC1785 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		92933B962108B04900CC1785 /* PWDataBridgeExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PWDataBridgeExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		92933B9A2108B04900CC1785 /* PWDataBridgeExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDataBridgeExampleTests.m; sourceTree = "<group>"; };
+		92933B9C2108B04900CC1785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92933BA12108B04900CC1785 /* PWDataBridgeExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PWDataBridgeExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		92933BA52108B04900CC1785 /* PWDataBridgeExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDataBridgeExampleUITests.m; sourceTree = "<group>"; };
+		92933BA72108B04900CC1785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92933BB32108B11000CC1785 /* exampleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = exampleModel.h; sourceTree = "<group>"; };
+		92933BB42108B11000CC1785 /* exampleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = exampleModel.m; sourceTree = "<group>"; };
+		C10851F557CCC1A8D412808C /* Pods-PWDataBridgeExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PWDataBridgeExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PWDataBridgeExample/Pods-PWDataBridgeExample.debug.xcconfig"; sourceTree = "<group>"; };
+		CE778FA37F42749C0DC1ADED /* libPods-PWDataBridgeExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PWDataBridgeExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		92933B7B2108B04300CC1785 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB96395C033FF5C59EA2E187 /* libPods-PWDataBridgeExample.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92933B932108B04900CC1785 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92933B9E2108B04900CC1785 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3151ECE07F40844BB347C676 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE778FA37F42749C0DC1ADED /* libPods-PWDataBridgeExample.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		57E538515B970923F1851EB3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C10851F557CCC1A8D412808C /* Pods-PWDataBridgeExample.debug.xcconfig */,
+				42F0D37672878B2BC53A3A30 /* Pods-PWDataBridgeExample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		92933B752108B04300CC1785 = {
+			isa = PBXGroup;
+			children = (
+				92933B802108B04300CC1785 /* PWDataBridgeExample */,
+				92933B992108B04900CC1785 /* PWDataBridgeExampleTests */,
+				92933BA42108B04900CC1785 /* PWDataBridgeExampleUITests */,
+				92933B7F2108B04300CC1785 /* Products */,
+				57E538515B970923F1851EB3 /* Pods */,
+				3151ECE07F40844BB347C676 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		92933B7F2108B04300CC1785 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				92933B7E2108B04300CC1785 /* PWDataBridgeExample.app */,
+				92933B962108B04900CC1785 /* PWDataBridgeExampleTests.xctest */,
+				92933BA12108B04900CC1785 /* PWDataBridgeExampleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		92933B802108B04300CC1785 /* PWDataBridgeExample */ = {
+			isa = PBXGroup;
+			children = (
+				92933B812108B04300CC1785 /* AppDelegate.h */,
+				92933B822108B04300CC1785 /* AppDelegate.m */,
+				92933B842108B04300CC1785 /* ViewController.h */,
+				92933B852108B04300CC1785 /* ViewController.m */,
+				92933BB32108B11000CC1785 /* exampleModel.h */,
+				92933BB42108B11000CC1785 /* exampleModel.m */,
+				92933B872108B04300CC1785 /* Main.storyboard */,
+				92933B8A2108B04800CC1785 /* Assets.xcassets */,
+				92933B8C2108B04800CC1785 /* LaunchScreen.storyboard */,
+				92933B8F2108B04800CC1785 /* Info.plist */,
+				92933B902108B04800CC1785 /* main.m */,
+			);
+			path = PWDataBridgeExample;
+			sourceTree = "<group>";
+		};
+		92933B992108B04900CC1785 /* PWDataBridgeExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				92933B9A2108B04900CC1785 /* PWDataBridgeExampleTests.m */,
+				92933B9C2108B04900CC1785 /* Info.plist */,
+			);
+			path = PWDataBridgeExampleTests;
+			sourceTree = "<group>";
+		};
+		92933BA42108B04900CC1785 /* PWDataBridgeExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				92933BA52108B04900CC1785 /* PWDataBridgeExampleUITests.m */,
+				92933BA72108B04900CC1785 /* Info.plist */,
+			);
+			path = PWDataBridgeExampleUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		92933B7D2108B04300CC1785 /* PWDataBridgeExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92933BAA2108B04900CC1785 /* Build configuration list for PBXNativeTarget "PWDataBridgeExample" */;
+			buildPhases = (
+				CE9775AD388C13325C13C76F /* [CP] Check Pods Manifest.lock */,
+				92933B7A2108B04300CC1785 /* Sources */,
+				92933B7B2108B04300CC1785 /* Frameworks */,
+				92933B7C2108B04300CC1785 /* Resources */,
+				EF91557797077D0CD5A10D37 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PWDataBridgeExample;
+			productName = PWDataBridgeExample;
+			productReference = 92933B7E2108B04300CC1785 /* PWDataBridgeExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		92933B952108B04900CC1785 /* PWDataBridgeExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92933BAD2108B04900CC1785 /* Build configuration list for PBXNativeTarget "PWDataBridgeExampleTests" */;
+			buildPhases = (
+				92933B922108B04900CC1785 /* Sources */,
+				92933B932108B04900CC1785 /* Frameworks */,
+				92933B942108B04900CC1785 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				92933B982108B04900CC1785 /* PBXTargetDependency */,
+			);
+			name = PWDataBridgeExampleTests;
+			productName = PWDataBridgeExampleTests;
+			productReference = 92933B962108B04900CC1785 /* PWDataBridgeExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		92933BA02108B04900CC1785 /* PWDataBridgeExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92933BB02108B04900CC1785 /* Build configuration list for PBXNativeTarget "PWDataBridgeExampleUITests" */;
+			buildPhases = (
+				92933B9D2108B04900CC1785 /* Sources */,
+				92933B9E2108B04900CC1785 /* Frameworks */,
+				92933B9F2108B04900CC1785 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				92933BA32108B04900CC1785 /* PBXTargetDependency */,
+			);
+			name = PWDataBridgeExampleUITests;
+			productName = PWDataBridgeExampleUITests;
+			productReference = 92933BA12108B04900CC1785 /* PWDataBridgeExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		92933B762108B04300CC1785 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "王宁";
+				TargetAttributes = {
+					92933B7D2108B04300CC1785 = {
+						CreatedOnToolsVersion = 9.4;
+					};
+					92933B952108B04900CC1785 = {
+						CreatedOnToolsVersion = 9.4;
+						TestTargetID = 92933B7D2108B04300CC1785;
+					};
+					92933BA02108B04900CC1785 = {
+						CreatedOnToolsVersion = 9.4;
+						TestTargetID = 92933B7D2108B04300CC1785;
+					};
+				};
+			};
+			buildConfigurationList = 92933B792108B04300CC1785 /* Build configuration list for PBXProject "PWDataBridgeExample" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 92933B752108B04300CC1785;
+			productRefGroup = 92933B7F2108B04300CC1785 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				92933B7D2108B04300CC1785 /* PWDataBridgeExample */,
+				92933B952108B04900CC1785 /* PWDataBridgeExampleTests */,
+				92933BA02108B04900CC1785 /* PWDataBridgeExampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		92933B7C2108B04300CC1785 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92933B8E2108B04800CC1785 /* LaunchScreen.storyboard in Resources */,
+				92933B8B2108B04800CC1785 /* Assets.xcassets in Resources */,
+				92933B892108B04300CC1785 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92933B942108B04900CC1785 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92933B9F2108B04900CC1785 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CE9775AD388C13325C13C76F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PWDataBridgeExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF91557797077D0CD5A10D37 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PWDataBridgeExample/Pods-PWDataBridgeExample-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/PWDataBridge/PWDataBridge.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PWDataBridge.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PWDataBridgeExample/Pods-PWDataBridgeExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		92933B7A2108B04300CC1785 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92933B862108B04300CC1785 /* ViewController.m in Sources */,
+				92933B912108B04800CC1785 /* main.m in Sources */,
+				92933BB52108B11000CC1785 /* exampleModel.m in Sources */,
+				92933B832108B04300CC1785 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92933B922108B04900CC1785 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92933B9B2108B04900CC1785 /* PWDataBridgeExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92933B9D2108B04900CC1785 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92933BA62108B04900CC1785 /* PWDataBridgeExampleUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		92933B982108B04900CC1785 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92933B7D2108B04300CC1785 /* PWDataBridgeExample */;
+			targetProxy = 92933B972108B04900CC1785 /* PBXContainerItemProxy */;
+		};
+		92933BA32108B04900CC1785 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92933B7D2108B04300CC1785 /* PWDataBridgeExample */;
+			targetProxy = 92933BA22108B04900CC1785 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		92933B872108B04300CC1785 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				92933B882108B04300CC1785 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		92933B8C2108B04800CC1785 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				92933B8D2108B04800CC1785 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		92933BA82108B04900CC1785 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		92933BA92108B04900CC1785 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		92933BAB2108B04900CC1785 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C10851F557CCC1A8D412808C /* Pods-PWDataBridgeExample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PWDataBridgeExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.PWDataBridge.wnrz.PWDataBridgeExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		92933BAC2108B04900CC1785 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42F0D37672878B2BC53A3A30 /* Pods-PWDataBridgeExample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PWDataBridgeExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.PWDataBridge.wnrz.PWDataBridgeExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		92933BAE2108B04900CC1785 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PWDataBridgeExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.PWDataBridge.wnrz.PWDataBridgeExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PWDataBridgeExample.app/PWDataBridgeExample";
+			};
+			name = Debug;
+		};
+		92933BAF2108B04900CC1785 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PWDataBridgeExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.PWDataBridge.wnrz.PWDataBridgeExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PWDataBridgeExample.app/PWDataBridgeExample";
+			};
+			name = Release;
+		};
+		92933BB12108B04900CC1785 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PWDataBridgeExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.PWDataBridge.wnrz.PWDataBridgeExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PWDataBridgeExample;
+			};
+			name = Debug;
+		};
+		92933BB22108B04900CC1785 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PWDataBridgeExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.PWDataBridge.wnrz.PWDataBridgeExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PWDataBridgeExample;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		92933B792108B04300CC1785 /* Build configuration list for PBXProject "PWDataBridgeExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92933BA82108B04900CC1785 /* Debug */,
+				92933BA92108B04900CC1785 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92933BAA2108B04900CC1785 /* Build configuration list for PBXNativeTarget "PWDataBridgeExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92933BAB2108B04900CC1785 /* Debug */,
+				92933BAC2108B04900CC1785 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92933BAD2108B04900CC1785 /* Build configuration list for PBXNativeTarget "PWDataBridgeExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92933BAE2108B04900CC1785 /* Debug */,
+				92933BAF2108B04900CC1785 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92933BB02108B04900CC1785 /* Build configuration list for PBXNativeTarget "PWDataBridgeExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92933BB12108B04900CC1785 /* Debug */,
+				92933BB22108B04900CC1785 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 92933B762108B04300CC1785 /* Project object */;
+}

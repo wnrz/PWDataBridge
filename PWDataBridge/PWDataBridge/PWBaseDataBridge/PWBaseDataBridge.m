@@ -9,10 +9,28 @@
 #import "PWBaseDataBridge.h"
 #import <objc/runtime.h>
 
+@implementation PWBaseDataBridgeActionModel
+
+- (void)dealloc{
+    _actionName = nil;
+    _beforeBlock = nil;
+}
+
+@end
+
+@implementation PWBaseDataBridgeBlockModel
+
+- (void)dealloc{
+    _block = nil;
+    _beforeBlock = nil;
+}
+
+@end
 #define baseDataBridgeValidArray(f) (f!=nil && [f isKindOfClass:[NSArray class]] && [f count]>0)
 @interface PWBaseDataBridge (){
     
     NSMutableDictionary *actions;
+    NSMutableDictionary *blocks;
     NSMutableArray *keyPaths;
     NSMutableArray *addKeyPath;
     NSMutableArray *propertys;
@@ -25,12 +43,15 @@
 - (void)dealloc{
     [self removeAllBridge];
     [keyPaths removeAllObjects];
-    observers = nil;
-    actions = nil;
     keyPaths = nil;
+    [observers removeAllObjects];
+    observers = nil;
+    [actions removeAllObjects];
+    actions = nil;
+    [blocks removeAllObjects];
+    blocks = nil;
     [addKeyPath removeAllObjects];
     addKeyPath = nil;
-    [self removeAllKeyPath];
 }
 
 - (instancetype)init{
@@ -38,6 +59,7 @@
     if (self) {
         observers = [[NSMutableDictionary alloc] init];
         actions = [[NSMutableDictionary alloc] init];
+        blocks = [[NSMutableDictionary alloc] init];
         keyPaths = [[NSMutableArray alloc] init];
         addKeyPath = [[NSMutableArray alloc] init];
         propertys = [[NSMutableArray alloc] init];
@@ -47,6 +69,9 @@
 }
 
 - (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath action:(SEL)action{
+    [self addBridgeObserver:observer forKeyPath:keyPath correction:nil action:action];
+}
+- (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath correction:(PWBaseDataBridgeBeforeReturnBlock)correction action:(SEL)action{
     if (![keyPaths containsObject:keyPath]){
         [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
@@ -60,14 +85,48 @@
     }
     NSString *className;// = NSStringFromClass([observer class]);
     className = [NSString stringWithFormat:@"%@_%p" , keyPath , observer];
-    NSMutableArray *actionArr = [actions objectForKey:className];
-    if (!actionArr) {
-        actionArr = [[NSMutableArray alloc] init];
+    NSMutableDictionary *actionDict = [actions objectForKey:className];
+    if (!actionDict) {
+        actionDict = [[NSMutableDictionary alloc] init];
     }
-    if (![actionArr containsObject:NSStringFromSelector(action)]) {
-        [actionArr addObject:NSStringFromSelector(action)];
+    if (![[actionDict allKeys] containsObject:NSStringFromSelector(action)]) {
+        PWBaseDataBridgeActionModel *actionModel = [[PWBaseDataBridgeActionModel alloc] init];
+        actionModel.actionName = NSStringFromSelector(action);
+        actionModel.beforeBlock = correction;
+        [actionDict setObject:actionModel forKey:NSStringFromSelector(action)];
     }
-    [actions setObject:actionArr forKey:className];
+    [actions setObject:actionDict forKey:className];
+    if (![keyPaths containsObject:keyPath]) {
+        [keyPaths addObject:keyPath];
+    }
+}
+
+- (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath block:(PWBaseDataBridgeResultBlock)block{
+    [self addBridgeObserver:observer forKeyPath:keyPath correction:nil block:block];
+}
+
+- (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath correction:(PWBaseDataBridgeBeforeReturnBlock)correction block:(PWBaseDataBridgeResultBlock)block{
+    if (![keyPaths containsObject:keyPath]){
+        [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    }
+    NSHashTable *objs = [observers objectForKey:keyPath];
+    if (!objs) {
+        objs = [NSHashTable hashTableWithOptions:NSHashTableWeakMemory];
+        [observers setObject:objs forKey:keyPath];
+    }
+    if (![objs containsObject:observer]) {
+        [objs addObject:observer];
+    }
+    NSString *className;// = NSStringFromClass([observer class]);
+    className = [NSString stringWithFormat:@"%@_%p" , keyPath , observer];
+    PWBaseDataBridgeBlockModel *blockModel;
+    if ([[blocks allKeys] containsObject:className]) {
+        blockModel = [blocks objectForKey:className];
+    }
+    blockModel = blockModel ? blockModel : [[PWBaseDataBridgeBlockModel alloc] init];
+    blockModel.block = block;
+    blockModel.beforeBlock = correction;
+    [blocks setObject:blockModel forKey:className];
     if (![keyPaths containsObject:keyPath]) {
         [keyPaths addObject:keyPath];
     }
@@ -80,6 +139,7 @@
         NSString *className;// = NSStringFromClass([observer class]);
         className = [NSString stringWithFormat:@"%@_%p" , keyPath , observer];
         [actions removeObjectForKey:className];
+        [blocks removeObjectForKey:className];
     }
 }
 
@@ -99,6 +159,7 @@
             NSString *className;// = NSStringFromClass([obj class]);
             className = [NSString stringWithFormat:@"%@_%p" , keyPath , obj];
             [actions removeObjectForKey:className];
+            [blocks removeObjectForKey:className];
         }
     }
 }
@@ -121,6 +182,7 @@
     }
     [observers removeAllObjects];
     [actions removeAllObjects];
+    [blocks removeAllObjects];
 }
 
 
@@ -137,21 +199,35 @@
                     if (obj) {
                         NSString *className;
                         className = [NSString stringWithFormat:@"%@_%p" , keyPath , obj];
-                        NSArray *actionArr = [self->actions objectForKey:className];//
-                        NSArray *tmp = [NSArray arrayWithArray:actionArr];
-                        [tmp enumerateObjectsUsingBlock:^(id  _Nonnull actionName, NSUInteger idx, BOOL * _Nonnull stop) {
+                        id pra = [[change allKeys] containsObject:NSKeyValueChangeNewKey] ? change[NSKeyValueChangeNewKey] : [self->propertys containsObject:keyPath] ? [self valueForKeyPath:keyPath] : nil;
+                        NSDictionary *actionDict = [self->actions objectForKey:className];//
+                        NSDictionary *tmp = [NSDictionary dictionaryWithDictionary:actionDict];
+                        [tmp enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull object, BOOL * _Nonnull stop) {
                             dispatch_async(dispatch_get_main_queue(), ^(void){
+                                PWBaseDataBridgeActionModel *model = object;
+                                NSString *actionName = model.actionName;
                                 SEL action = NSSelectorFromString(actionName);
                                 if (action && [obj respondsToSelector:action]) {
-                                    id pra = [[change allKeys] containsObject:NSKeyValueChangeNewKey] ? change[NSKeyValueChangeNewKey] : [self->propertys containsObject:keyPath] ? [self valueForKeyPath:keyPath] : nil;
+                                    id praResult = pra;
+                                    if (model.beforeBlock) {
+                                        model.beforeBlock(pra , &praResult);
+                                    }
                                     IMP imp = [obj methodForSelector:action];
                                     void (*func)(id, SEL, id) = (void *)imp;
-                                    func(obj, action, pra);
+                                    func(obj, action, praResult);
                                     //                            [obj performSelector:action withObject:change];
                                 }
                             });
                         }];
                         tmp = nil;
+                        PWBaseDataBridgeBlockModel *model = [self->blocks objectForKey:className];
+                        if (model && model.block) {
+                            id praResult = pra;
+                            if (model.beforeBlock) {
+                                model.beforeBlock(pra , &praResult);
+                            }
+                            model.block(praResult);
+                        }
                     }
                 }@catch (NSException *error){
                     NSLog(@"PWBaseDataBridge error : %@" , error);

@@ -1,0 +1,18 @@
+PODS:
+  - PWDataBridge (0.0.1):
+    - PWDataBridge/HomeDataProject (= 0.0.1)
+  - PWDataBridge/HomeDataProject (0.0.1)
+
+DEPENDENCIES:
+  - PWDataBridge (from `../../PWDataBridge`)
+
+EXTERNAL SOURCES:
+  PWDataBridge:
+    :path: "../../PWDataBridge"
+
+SPEC CHECKSUMS:
+  PWDataBridge: 4206a08cc74bf0775c355db427404ac8aee6f74b
+
+PODFILE CHECKSUM: 5f870fdfafb9a48552fb319329d6613fb66bf599
+
+COCOAPODS: 1.5.3

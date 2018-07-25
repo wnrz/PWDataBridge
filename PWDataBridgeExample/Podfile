@@ -1,0 +1,9 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+def pods
+
+    pod 'PWDataBridge', :path => '../../PWDataBridge'
+end
+target 'PWDataBridgeExample' do
+    pods
+end
