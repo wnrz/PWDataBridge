@@ -10,6 +10,8 @@
 		92933B602108A73000CC1785 /* PWDataBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92933B562108A73000CC1785 /* PWDataBridge.framework */; };
 		92933B652108A73000CC1785 /* PWDataBridgeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92933B642108A73000CC1785 /* PWDataBridgeTests.m */; };
 		92933B672108A73100CC1785 /* PWDataBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 92933B592108A73000CC1785 /* PWDataBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		92933B732108A84600CC1785 /* PWBaseDataBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 92933B712108A84500CC1785 /* PWBaseDataBridge.m */; };
+		92933B742108A84600CC1785 /* PWBaseDataBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 92933B722108A84500CC1785 /* PWBaseDataBridge.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		92933B5F2108A73000CC1785 /* PWDataBridgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PWDataBridgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		92933B642108A73000CC1785 /* PWDataBridgeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDataBridgeTests.m; sourceTree = "<group>"; };
 		92933B662108A73100CC1785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92933B712108A84500CC1785 /* PWBaseDataBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWBaseDataBridge.m; sourceTree = "<group>"; };
+		92933B722108A84500CC1785 /* PWBaseDataBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWBaseDataBridge.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,7 @@
 		92933B582108A73000CC1785 /* PWDataBridge */ = {
 			isa = PBXGroup;
 			children = (
+				92933B702108A84500CC1785 /* PWBaseDataBridge */,
 				92933B592108A73000CC1785 /* PWDataBridge.h */,
 				92933B5A2108A73000CC1785 /* Info.plist */,
 			);
@@ -86,6 +91,15 @@
 			path = PWDataBridgeTests;
 			sourceTree = "<group>";
 		};
+		92933B702108A84500CC1785 /* PWBaseDataBridge */ = {
+			isa = PBXGroup;
+			children = (
+				92933B722108A84500CC1785 /* PWBaseDataBridge.h */,
+				92933B712108A84500CC1785 /* PWBaseDataBridge.m */,
+			);
+			path = PWBaseDataBridge;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -94,6 +108,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92933B672108A73100CC1785 /* PWDataBridge.h in Headers */,
+				92933B742108A84600CC1785 /* PWBaseDataBridge.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92933B732108A84600CC1785 /* PWBaseDataBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

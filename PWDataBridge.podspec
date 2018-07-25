@@ -19,26 +19,21 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "8.0"
   s.ios.deployment_target = "8.0"
 
-
-  #s.source       = { :git => "../"}
-  s.public_header_files = 'PWDataBridge/PWDataBridge/*.h'#公共的头文件地址
-  s.source_files = 'PWDataBridge/PWDataBridge/PWDataBridge.h'#文件地址，pod会以这个地址下载需要的文件构建pods
+  s.public_header_files = 'PWDataBridge/PWDataBridge/*.h'
+  s.source_files = 'PWDataBridge/PWDataBridge/PWDataBridge.h'
 
   s.source = { :git => 'https://github.com/wnrz/PWDataBridge.git', :tag => s.version.to_s}
-  #s.ios.vendored_frameworks ='release/0.0.1/PWUIKit.framework'
+  
 
   s.requires_arc = true
   s.framework = "UIKit","Foundation"
 
 
   s.subspec 'HomeDataProject' do |ss|#
-    ss.source_files = 'HomeDataProject/HomeDataProject/**/*.{h,m,c}'
+    ss.source_files = 'PWDataBridge/PWDataBridge/**/*.{h,m,c}'
     ss.ios.frameworks = 'UIKit', 'Foundation','UIKit'
   end
 
-  s.resource_bundles = {'HomeDataProject' => ['HomeDataProject/HomeDataProject/**/*.{png,plist,xib}']}
+  s.resource_bundles = {'PWDataBridge' => ['PWDataBridge/PWDataBridge/**/*.{png,plist,xib}']}
 
-  s.dependency 'BaseBusiness'
-  s.dependency 'BaseUtils'
-  s.dependency 'BaseUIKit'
 end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <PWDataBridge/PWBaseDataBridge.h>
 
 //! Project version number for PWDataBridge.
 FOUNDATION_EXPORT double PWDataBridgeVersionNumber;

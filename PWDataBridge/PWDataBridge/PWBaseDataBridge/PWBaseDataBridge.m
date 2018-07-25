@@ -2,8 +2,8 @@
 //  PWBaseDataBridge.m
 //  UIKit
 //
-//  Created by mac on 2018/1/10.
-//  Copyright © 2018年 com.gw. All rights reserved.
+//  Created by wnrz on 2018/1/10.
+//  Copyright © 2018年 wnrz. All rights reserved.
 //
 
 #import "PWBaseDataBridge.h"
@@ -14,8 +14,6 @@
     
     NSMutableDictionary *actions;
     NSMutableArray *keyPaths;
-    pthread_mutex_t _lock;
-    NSCondition *con;
     NSMutableArray *addKeyPath;
     NSMutableArray *propertys;
 }
@@ -41,7 +39,6 @@
         observers = [[NSMutableDictionary alloc] init];
         actions = [[NSMutableDictionary alloc] init];
         keyPaths = [[NSMutableArray alloc] init];
-        con = [[NSCondition alloc] init];
         addKeyPath = [[NSMutableArray alloc] init];
         propertys = [[NSMutableArray alloc] init];
         [self getAllIvarList];
@@ -50,12 +47,6 @@
 }
 
 - (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath action:(SEL)action{
-//    @try{
-//        [self removeObserver:self forKeyPath:keyPath];
-//    }@catch (NSException *error){
-//    }@finally{
-//    }
-//    [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     if (![keyPaths containsObject:keyPath]){
         [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
@@ -134,7 +125,6 @@
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
-//    [con lock];
     @autoreleasepool{
         NSHashTable *objs = [self->observers objectForKey:keyPath];
         NSArray *arr = [NSArray arrayWithArray:objs.allObjects];
@@ -145,7 +135,7 @@
                 }
                 @try{
                     if (obj) {
-                        NSString *className;// = NSStringFromClass([obj class]);
+                        NSString *className;
                         className = [NSString stringWithFormat:@"%@_%p" , keyPath , obj];
                         NSArray *actionArr = [self->actions objectForKey:className];//
                         NSArray *tmp = [NSArray arrayWithArray:actionArr];
@@ -164,7 +154,7 @@
                         tmp = nil;
                     }
                 }@catch (NSException *error){
-                    NSLog(@"---==--==error : %@" , error);
+                    NSLog(@"PWBaseDataBridge error : %@" , error);
                 }@finally{
                     
                 }
@@ -172,31 +162,6 @@
             arr = nil;
         }
     }
-    
-//    NSHashTable *objs = [observers objectForKey:keyPath];
-//    if (objs && IsValidateArr([objs allObjects])) {
-//        [[objs allObjects] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            @try{
-//                if (obj) {
-//                    NSString *className;// = NSStringFromClass([obj class]);
-//                    className = [NSString stringWithFormat:@"%@_%p" , keyPath , obj];
-//                    NSArray *actionArr = [actions objectForKey:className];//
-//                    NSArray *tmp = [NSArray arrayWithArray:actionArr];
-//                    [tmp enumerateObjectsUsingBlock:^(id  _Nonnull actionName, NSUInteger idx, BOOL * _Nonnull stop) {
-//                        SEL action = NSSelectorFromString(actionName);
-//                        if (action && [obj respondsToSelector:action]) {
-//                            [obj performSelector:action withObject:change];
-//                        }
-//                    }];
-//                }
-//            }@catch (NSException *error){
-//                NSLog(@"---==--==error : %@" , error);
-//            }@finally{
-//
-//            }
-//        }];
-//    }
-////    [con unlock];
 }
 
 - (void)addKeyPath:(NSString *)key{
@@ -218,15 +183,13 @@
     }
 }
 
-//遍历获取Person类所有的成员变量IvarList
 - (void) getAllIvarList {
     unsigned int methodCount = 0;
     Ivar * ivars = class_copyIvarList([self class], &methodCount);
     for (unsigned int i = 0; i < methodCount; i ++) {
         Ivar ivar = ivars[i];
         const char * name = ivar_getName(ivar);
-        const char * type = ivar_getTypeEncoding(ivar);
-//        NSLog(@"Person拥有的成员变量的类型为%s，名字为 %s ",type, name);
+//        const char * type = ivar_getTypeEncoding(ivar);
         [propertys addObject:[NSString stringWithFormat:@"%s" , name]];
     }
     free(ivars);

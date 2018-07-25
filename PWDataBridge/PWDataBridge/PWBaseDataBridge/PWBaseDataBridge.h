@@ -2,8 +2,8 @@
 //  PWBaseDataBridge.h
 //  UIKit
 //
-//  Created by mac on 2018/1/10.
-//  Copyright © 2018年 com.gw. All rights reserved.
+//  Created by wnrz on 2018/1/10.
+//  Copyright © 2018年 wnrz. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
