@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "PWDataBridge"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "KVO数据封装"
 
 
@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   s.framework = "UIKit","Foundation"
 
 
-  s.subspec 'HomeDataProject' do |ss|#
+  s.subspec 'PWDataBridge' do |ss|#
     ss.source_files = 'PWDataBridge/PWDataBridge/**/*.{h,m,c}'
     ss.ios.frameworks = 'UIKit', 'Foundation','UIKit'
   end
