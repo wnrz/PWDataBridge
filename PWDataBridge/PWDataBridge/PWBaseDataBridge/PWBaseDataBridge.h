@@ -27,10 +27,10 @@ typedef void(^PWBaseDataBridgeResultBlock)(id value);
     NSMutableDictionary *observers;
 }
 
-@property(assign , nonatomic)int bridgeNum;
-@property(copy , nonatomic)NSString *bridgeString;
-@property(copy , nonatomic)NSMutableDictionary *bridgeDict;
-@property(copy , nonatomic)NSMutableArray *bridgeArray;
+@property(nonatomic , assign)int bridgeNum;
+@property(nonatomic , strong)NSString *bridgeString;
+@property(nonatomic , copy)NSMutableDictionary *bridgeDict;
+@property(nonatomic , strong)NSMutableArray *bridgeArray;
 
 - (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath correction:(PWBaseDataBridgeBeforeReturnBlock)correction action:(SEL)action;
 - (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath action:(SEL)action;
