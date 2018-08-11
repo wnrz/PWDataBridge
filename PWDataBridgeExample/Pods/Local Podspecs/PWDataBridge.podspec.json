@@ -1,6 +1,6 @@
 {
   "name": "PWDataBridge",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "summary": "KVO数据封装",
   "description": "KVO数据封装",
   "homepage": "https://github.com/wnrz/PWDataBridge.git",
@@ -15,7 +15,7 @@
   "source_files": "PWDataBridge/PWDataBridge/PWDataBridge.h",
   "source": {
     "git": "https://github.com/wnrz/PWDataBridge.git",
-    "tag": "0.0.1"
+    "tag": "0.0.4"
   },
   "requires_arc": true,
   "frameworks": [
@@ -29,7 +29,7 @@
   },
   "subspecs": [
     {
-      "name": "HomeDataProject",
+      "name": "PWDataBridge",
       "source_files": "PWDataBridge/PWDataBridge/**/*.{h,m,c}",
       "ios": {
         "frameworks": [

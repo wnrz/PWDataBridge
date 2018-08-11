@@ -1,7 +1,7 @@
 PODS:
-  - PWDataBridge (0.0.1):
-    - PWDataBridge/HomeDataProject (= 0.0.1)
-  - PWDataBridge/HomeDataProject (0.0.1)
+  - PWDataBridge (0.0.4):
+    - PWDataBridge/PWDataBridge (= 0.0.4)
+  - PWDataBridge/PWDataBridge (0.0.4)
 
 DEPENDENCIES:
   - PWDataBridge (from `../../PWDataBridge`)
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../../PWDataBridge"
 
 SPEC CHECKSUMS:
-  PWDataBridge: 4206a08cc74bf0775c355db427404ac8aee6f74b
+  PWDataBridge: 93ff09b55bbed0eee0762b19fa36f831f29eff94
 
 PODFILE CHECKSUM: 5f870fdfafb9a48552fb319329d6613fb66bf599
 
