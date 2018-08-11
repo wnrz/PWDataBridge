@@ -11,20 +11,15 @@
 typedef void(^PWBaseDataBridgeBeforeReturnBlock)(id value , id *result);
 typedef void(^PWBaseDataBridgeResultBlock)(id value);
 
-@interface PWBaseDataBridgeActionModel : NSObject
+@interface PWBaseDataBridgeModel : NSObject
 
+@property (nonatomic , weak) id observer;
 @property (nonatomic , copy) NSString *actionName;
-@property (nonatomic , copy) PWBaseDataBridgeBeforeReturnBlock beforeBlock;
-@end
-
-@interface PWBaseDataBridgeBlockModel : NSObject
-
 @property (nonatomic , copy) PWBaseDataBridgeResultBlock block;
 @property (nonatomic , copy) PWBaseDataBridgeBeforeReturnBlock beforeBlock;
 @end
 
 @interface PWBaseDataBridge : NSObject{
-    NSMutableDictionary *observers;
 }
 
 @property(nonatomic , assign)int bridgeNum;
@@ -40,7 +35,5 @@ typedef void(^PWBaseDataBridgeResultBlock)(id value);
 - (void)removeBridgeObserver:(NSObject *)observer;
 - (void)removeBridgeForKeyPath:(NSString *)keyPath;
 - (void)removeAllBridge;
-- (void)addKeyPath:(NSString *)KeyPath;
-- (void)removeAllKeyPath;
 - (void)sendSignalWith:(NSString *)key value:(id)value;
 @end
