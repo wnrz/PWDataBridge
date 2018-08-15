@@ -59,7 +59,7 @@
 }
 
 - (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath correction:(PWBaseDataBridgeBeforeReturnBlock)correction action:(SEL)action{
-    if (!keyPath || !observer) {
+    if (!keyPath || !observer || !action) {
         return;
     }
     if (![observer respondsToSelector:action]) {

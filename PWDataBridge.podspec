@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "PWDataBridge"
-  s.version      = "0.0.7"
+  s.version      = "0.0.8"
   s.summary      = "KVO数据封装"
 
 
