@@ -198,15 +198,17 @@
                 if (!model || !model.observer) {
                     [self->models removeObjectForKey:key];
                 }else{
-                    id praResult = pra;
-                    if (model.beforeBlock) {
-                        model.beforeBlock(pra , &praResult);
-                    }
                     dispatch_async(dispatch_get_main_queue(), ^(void){
+                        id praResult = pra;
+                        if (model.beforeBlock) {
+                            model.beforeBlock(pra , &praResult);
+                        }
                         SEL action = model.selector;
-                        IMP imp = [model.observer methodForSelector:action];
-                        void (*func)(id, SEL, id) = (void *)imp;
-                        func(model.observer, action, praResult);
+                        if (action) {
+                            IMP imp = [model.observer methodForSelector:action];
+                            void (*func)(id, SEL, id) = (void *)imp;
+                            func(model.observer, action, praResult);
+                        }
                         if (model.block) {
                             model.block(praResult);
                         }
