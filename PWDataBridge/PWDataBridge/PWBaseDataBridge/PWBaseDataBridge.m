@@ -62,6 +62,9 @@
     if (!keyPath || !observer) {
         return;
     }
+    if (![observer respondsToSelector:action]) {
+        return;
+    }
     NSString *key = [self getKeyByKeyPath:keyPath observer:observer];
     PWBaseDataBridgeModel *model = [models objectForKey:key];
     if (!model) {
@@ -85,6 +88,9 @@
 
 - (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath correction:(PWBaseDataBridgeBeforeReturnBlock)correction block:(PWBaseDataBridgeResultBlock)block{
     if (!keyPath || !observer) {
+        return;
+    }
+    if (!block && !correction) {
         return;
     }
     NSString *key = [self getKeyByKeyPath:keyPath observer:observer];
@@ -197,15 +203,10 @@
                         model.beforeBlock(pra , &praResult);
                     }
                     dispatch_async(dispatch_get_main_queue(), ^(void){
-//                        NSString *actionName = model.actionName;
-//                        if (actionName) {
-                        SEL action = model.selector;//NSSelectorFromString(actionName);
-//                            if (action && [model.observer respondsToSelector:action]) {
+                        SEL action = model.selector;
                         IMP imp = [model.observer methodForSelector:action];
                         void (*func)(id, SEL, id) = (void *)imp;
                         func(model.observer, action, praResult);
-                        //                            }
-//                        }
                         if (model.block) {
                             model.block(praResult);
                         }
