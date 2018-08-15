@@ -16,6 +16,7 @@
     _beforeBlock = nil;
     _block = nil;
     _observer = nil;
+    _selector = NULL;
 }
 
 @end
@@ -74,6 +75,7 @@
     model.observer = observer;
     model.beforeBlock = correction;
     model.actionName = NSStringFromSelector(action);
+    model.selector = action;
     model.block = nil;
 }
 
@@ -195,15 +197,15 @@
                         model.beforeBlock(pra , &praResult);
                     }
                     dispatch_async(dispatch_get_main_queue(), ^(void){
-                        NSString *actionName = model.actionName;
-                        if (actionName) {
-                            SEL action = NSSelectorFromString(actionName);
-                            if (action && [model.observer respondsToSelector:action]) {
-                                IMP imp = [model.observer methodForSelector:action];
-                                void (*func)(id, SEL, id) = (void *)imp;
-                                func(model.observer, action, praResult);
-                            }
-                        }
+//                        NSString *actionName = model.actionName;
+//                        if (actionName) {
+                        SEL action = model.selector;//NSSelectorFromString(actionName);
+//                            if (action && [model.observer respondsToSelector:action]) {
+                        IMP imp = [model.observer methodForSelector:action];
+                        void (*func)(id, SEL, id) = (void *)imp;
+                        func(model.observer, action, praResult);
+                        //                            }
+//                        }
                         if (model.block) {
                             model.block(praResult);
                         }

@@ -15,6 +15,7 @@ typedef void(^PWBaseDataBridgeResultBlock)(id value);
 
 @property (nonatomic , weak) id observer;
 @property (nonatomic , copy) NSString *actionName;
+@property (nonatomic , assign) SEL selector;
 @property (nonatomic , copy) PWBaseDataBridgeResultBlock block;
 @property (nonatomic , copy) PWBaseDataBridgeBeforeReturnBlock beforeBlock;
 @end
