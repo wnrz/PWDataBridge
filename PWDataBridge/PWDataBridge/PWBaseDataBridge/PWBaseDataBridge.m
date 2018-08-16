@@ -206,8 +206,12 @@
                         SEL action = model.selector;
                         if (action) {
                             IMP imp = [model.observer methodForSelector:action];
-                            void (*func)(id, SEL, id) = (void *)imp;
-                            func(model.observer, action, praResult);
+                            if (imp) {
+                                void (*func)(id, SEL, id) = (void *)imp;
+                                func(model.observer, action, praResult);
+                            }else{
+                                NSLog(@"imp is 0x0");
+                            }
                         }
                         if (model.block) {
                             model.block(praResult);
