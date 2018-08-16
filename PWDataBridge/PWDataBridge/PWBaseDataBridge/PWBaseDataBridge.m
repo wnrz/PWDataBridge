@@ -59,7 +59,10 @@
 }
 
 - (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath correction:(PWBaseDataBridgeBeforeReturnBlock)correction action:(SEL)action{
-    if (!keyPath || !observer) {
+    if (!keyPath || !observer || !action) {
+        return;
+    }
+    if (![observer respondsToSelector:action]) {
         return;
     }
     NSString *key = [self getKeyByKeyPath:keyPath observer:observer];
@@ -85,6 +88,9 @@
 
 - (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath correction:(PWBaseDataBridgeBeforeReturnBlock)correction block:(PWBaseDataBridgeResultBlock)block{
     if (!keyPath || !observer) {
+        return;
+    }
+    if (!block && !correction) {
         return;
     }
     NSString *key = [self getKeyByKeyPath:keyPath observer:observer];
@@ -192,20 +198,17 @@
                 if (!model || !model.observer) {
                     [self->models removeObjectForKey:key];
                 }else{
-                    id praResult = pra;
-                    if (model.beforeBlock) {
-                        model.beforeBlock(pra , &praResult);
-                    }
                     dispatch_async(dispatch_get_main_queue(), ^(void){
-//                        NSString *actionName = model.actionName;
-//                        if (actionName) {
-                        SEL action = model.selector;//NSSelectorFromString(actionName);
-//                            if (action && [model.observer respondsToSelector:action]) {
-                        IMP imp = [model.observer methodForSelector:action];
-                        void (*func)(id, SEL, id) = (void *)imp;
-                        func(model.observer, action, praResult);
-                        //                            }
-//                        }
+                        id praResult = pra;
+                        if (model.beforeBlock) {
+                            model.beforeBlock(pra , &praResult);
+                        }
+                        SEL action = model.selector;
+                        if (action) {
+                            IMP imp = [model.observer methodForSelector:action];
+                            void (*func)(id, SEL, id) = (void *)imp;
+                            func(model.observer, action, praResult);
+                        }
                         if (model.block) {
                             model.block(praResult);
                         }
