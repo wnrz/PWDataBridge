@@ -65,7 +65,7 @@
     if (![observer respondsToSelector:action]) {
         return;
     }
-    NSString *key = [self getKeyByKeyPath:keyPath observer:observer];
+    NSString *key = [self getKeyByKeyPath:keyPath observer:observer actionName:NSStringFromSelector(action)];
     PWBaseDataBridgeModel *model = [models objectForKey:key];
     if (!model) {
         model = [[PWBaseDataBridgeModel alloc] init];
@@ -93,7 +93,7 @@
     if (!block && !correction) {
         return;
     }
-    NSString *key = [self getKeyByKeyPath:keyPath observer:observer];
+    NSString *key = [self getKeyByKeyPath:keyPath observer:observer actionName:@"PWBaseDataBridgeModel_Block"];
     PWBaseDataBridgeModel *model = [models objectForKey:key];
     if (!model) {
         model = [[PWBaseDataBridgeModel alloc] init];
@@ -112,7 +112,13 @@
 - (void)removeBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:models];
     [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        NSString *kp = [self getKeyByKeyPath:keyPath observer:observer];
+        PWBaseDataBridgeModel *model = obj;
+        NSString *kp;
+        if (model.actionName) {
+            kp = [self getKeyByKeyPath:keyPath observer:observer actionName:model.actionName];
+        }else{
+            kp = [self getKeyByKeyPath:keyPath observer:observer actionName:@"PWBaseDataBridgeModel_Block"];
+        }
         if ([key isEqualToString:kp]) {
             [self->models removeObjectForKey:key];
         }
@@ -164,8 +170,8 @@
     return keyPath;
 }
 
-- (NSString *)getKeyByKeyPath:(NSString *)keyPath observer:(id)observer{
-    NSString *string = [NSString stringWithFormat:@"%@||%p" , keyPath , observer];
+- (NSString *)getKeyByKeyPath:(NSString *)keyPath observer:(id)observer actionName:(NSString *)actionName{
+    NSString *string = [NSString stringWithFormat:@"%@||%p||%@" , keyPath , observer , actionName];
     return string;
 }
 

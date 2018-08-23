@@ -1,7 +1,7 @@
 PODS:
-  - PWDataBridge (0.0.4):
-    - PWDataBridge/PWDataBridge (= 0.0.4)
-  - PWDataBridge/PWDataBridge (0.0.4)
+  - PWDataBridge (0.0.11):
+    - PWDataBridge/PWDataBridge (= 0.0.11)
+  - PWDataBridge/PWDataBridge (0.0.11)
 
 DEPENDENCIES:
   - PWDataBridge (from `../../PWDataBridge`)
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../../PWDataBridge"
 
 SPEC CHECKSUMS:
-  PWDataBridge: 93ff09b55bbed0eee0762b19fa36f831f29eff94
+  PWDataBridge: 3ff75160115d3157941fd3836ca756d53c401228
 
 PODFILE CHECKSUM: 5f870fdfafb9a48552fb319329d6613fb66bf599
 
