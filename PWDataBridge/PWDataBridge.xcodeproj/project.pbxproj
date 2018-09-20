@@ -27,7 +27,7 @@
 /* Begin PBXFileReference section */
 		92933B562108A73000CC1785 /* PWDataBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PWDataBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92933B592108A73000CC1785 /* PWDataBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWDataBridge.h; sourceTree = "<group>"; };
-		92933B5A2108A73000CC1785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92933B5A2108A73000CC1785 /* PWDataBridge-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PWDataBridge-Info.plist"; sourceTree = "<group>"; };
 		92933B5F2108A73000CC1785 /* PWDataBridgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PWDataBridgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		92933B642108A73000CC1785 /* PWDataBridgeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDataBridgeTests.m; sourceTree = "<group>"; };
 		92933B662108A73100CC1785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -77,7 +77,7 @@
 			children = (
 				92933B702108A84500CC1785 /* PWBaseDataBridge */,
 				92933B592108A73000CC1785 /* PWDataBridge.h */,
-				92933B5A2108A73000CC1785 /* Info.plist */,
+				92933B5A2108A73000CC1785 /* PWDataBridge-Info.plist */,
 			);
 			path = PWDataBridge;
 			sourceTree = "<group>";
@@ -356,7 +356,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = PWDataBridge/Info.plist;
+				INFOPLIST_FILE = "PWDataBridge/PWDataBridge-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -379,7 +379,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = PWDataBridge/Info.plist;
+				INFOPLIST_FILE = "PWDataBridge/PWDataBridge-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
