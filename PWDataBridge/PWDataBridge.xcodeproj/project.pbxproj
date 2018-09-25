@@ -11,7 +11,7 @@
 		92933B652108A73000CC1785 /* PWDataBridgeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92933B642108A73000CC1785 /* PWDataBridgeTests.m */; };
 		92933B672108A73100CC1785 /* PWDataBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 92933B592108A73000CC1785 /* PWDataBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92933B732108A84600CC1785 /* PWBaseDataBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 92933B712108A84500CC1785 /* PWBaseDataBridge.m */; };
-		92933B742108A84600CC1785 /* PWBaseDataBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 92933B722108A84500CC1785 /* PWBaseDataBridge.h */; };
+		92933B742108A84600CC1785 /* PWBaseDataBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 92933B722108A84500CC1785 /* PWBaseDataBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -350,6 +350,7 @@
 		92933B6B2108A73100CC1785 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -373,6 +374,7 @@
 		92933B6C2108A73100CC1785 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;

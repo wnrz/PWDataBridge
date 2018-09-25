@@ -36,4 +36,13 @@ Pod::Spec.new do |s|
 
   s.resource_bundles = {'PWDataBridge' => ['PWDataBridge/PWDataBridge/**/*.{png,plist,xib}']}
 
+#  s.pod_target_xcconfig = {
+#      'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
+#      'FRAMEWORK_SEARCH_PATHS' => '$(inherited) ${PODS_ROOT}/**',
+#      'LIBRARY_SEARCH_PATHS' => '$(inherited) ${PODS_ROOT}/**' ,
+#      'OTHER_LDFLAGS'          => '$(inherited) -undefined dynamic_lookup',
+#      "DEFINES_MODULE" => "YES"
+#  }
+  
+#  s.static_framework = true
 end
