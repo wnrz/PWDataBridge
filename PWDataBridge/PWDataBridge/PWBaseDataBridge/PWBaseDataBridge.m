@@ -201,7 +201,8 @@
             NSString *kp = [self getKeyPathByKey:key];
             if ([kp isEqualToString:keyPath]) {
                 PWBaseDataBridgeModel *model = obj;
-                if (!model || !model.observer) {
+                __strong typeof(model.observer) strongObserver = model.observer;
+                if (!model || !strongObserver) {
                     [self->models removeObjectForKey:key];
                 }else{
                     dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -211,10 +212,10 @@
                         }
                         SEL action = model.selector;
                         if (action) {
-                            IMP imp = [model.observer methodForSelector:action];
+                            IMP imp = [strongObserver methodForSelector:action];
                             if (imp) {
                                 void (*func)(id, SEL, id) = (void *)imp;
-                                func(model.observer, action, praResult);
+                                func(strongObserver, action, praResult);
                             }else{
                                 NSLog(@"imp is 0x0");
                             }
