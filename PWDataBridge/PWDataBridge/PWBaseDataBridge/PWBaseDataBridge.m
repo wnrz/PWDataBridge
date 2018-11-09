@@ -26,6 +26,7 @@
     NSMutableArray *addKeyPaths;
     NSMutableDictionary *models;
     NSMutableArray *propertys;
+    NSCondition *lock;
 }
 
 
@@ -33,6 +34,8 @@
 @implementation PWBaseDataBridge
 
 - (void)dealloc{
+    [lock unlock];
+    lock = nil;
     [self removeAllBridge];
     [addKeyPaths enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [self removeObserver:self forKeyPath:obj];
@@ -49,6 +52,7 @@
         addKeyPaths = [[NSMutableArray alloc] init];
         models = [[NSMutableDictionary alloc] init];
         propertys = [[NSMutableArray alloc] init];
+        lock = [[NSCondition alloc] init];
         [self getAllIvarList];
     }
     return self;
@@ -110,6 +114,7 @@
 }
 
 - (void)removeBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath{
+    [lock lock];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:models];
     [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         PWBaseDataBridgeModel *model = obj;
@@ -123,10 +128,12 @@
             [self->models removeObjectForKey:key];
         }
     }];
+    [lock unlock];
 }
 
 - (void)removeBridgeObserver:(NSObject *)observer{
     NSString *string = [NSString stringWithFormat:@"%p" , observer];
+    [lock lock];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:models];
     [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         NSString *kp = [self getKeyPathByKey:key];
@@ -135,9 +142,11 @@
             [self->models removeObjectForKey:key];
         }
     }];
+    [lock unlock];
 }
 
 - (void)removeBridgeForKeyPath:(NSString *)keyPath{
+    [lock lock];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:models];
     [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         NSString *kp = [self getKeyPathByKey:key];
@@ -151,9 +160,11 @@
             [addKeyPaths removeObject:keyPath];
         }
     }
+    [lock unlock];
 }
 
 - (void)removeAllBridge{
+    [lock lock];
     [models removeAllObjects];
     NSMutableArray *array = [[NSMutableArray alloc] initWithArray:addKeyPaths];
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -163,6 +174,7 @@
             [self->addKeyPaths removeObject:key];
         }
     }];
+    [lock unlock];
 }
 
 - (NSString *)getKeyPathByKey:(NSString *)key{
@@ -176,6 +188,7 @@
 }
 
 - (void)cleanUnuseKeyPath{
+    [lock lock];
     NSMutableArray *array = [[NSMutableArray alloc] initWithArray:addKeyPaths];
     NSMutableArray *keys = [NSMutableArray arrayWithArray:[models allKeys]];
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj1, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -192,8 +205,10 @@
             [self removeObserver:self forKeyPath:key];
         }
     }];
+    [lock unlock];
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    [lock lock];
     @autoreleasepool{
         id pra = [[change allKeys] containsObject:NSKeyValueChangeNewKey] ? change[NSKeyValueChangeNewKey] : [self->propertys containsObject:keyPath] ? [self valueForKeyPath:keyPath] : nil;
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:models];
@@ -201,7 +216,8 @@
             NSString *kp = [self getKeyPathByKey:key];
             if ([kp isEqualToString:keyPath]) {
                 PWBaseDataBridgeModel *model = obj;
-                if (!model || !model.observer) {
+                __strong typeof(model.observer) strongObserver = model.observer;
+                if (!model || !strongObserver) {
                     [self->models removeObjectForKey:key];
                 }else{
                     dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -211,10 +227,10 @@
                         }
                         SEL action = model.selector;
                         if (action) {
-                            IMP imp = [model.observer methodForSelector:action];
+                            IMP imp = [strongObserver methodForSelector:action];
                             if (imp) {
                                 void (*func)(id, SEL, id) = (void *)imp;
-                                func(model.observer, action, praResult);
+                                func(strongObserver, action, praResult);
                             }else{
                                 NSLog(@"imp is 0x0");
                             }
@@ -227,6 +243,7 @@
             }
         }];
     }
+    [lock unlock];
 }
 
 - (void)sendSignalWith:(NSString *)key value:(id)value{

@@ -25,7 +25,7 @@ typedef void(^PWBaseDataBridgeResultBlock)(id value);
 
 @property(nonatomic , assign)int bridgeNum;
 @property(nonatomic , strong)NSString *bridgeString;
-@property(nonatomic , copy)NSMutableDictionary *bridgeDict;
+@property(nonatomic , strong)NSMutableDictionary *bridgeDict;
 @property(nonatomic , strong)NSMutableArray *bridgeArray;
 
 - (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath correction:(PWBaseDataBridgeBeforeReturnBlock)correction action:(SEL)action;
