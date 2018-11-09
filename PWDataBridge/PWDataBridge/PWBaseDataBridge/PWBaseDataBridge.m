@@ -24,6 +24,7 @@
 @interface PWBaseDataBridge (){
     
     NSMutableArray *addKeyPaths;
+    NSMutableArray *removeKeys;
     NSMutableDictionary *models;
     NSMutableArray *propertys;
     NSCondition *lock;
@@ -42,6 +43,8 @@
     }];
     [addKeyPaths removeAllObjects];
     addKeyPaths = nil;
+    [removeKeys removeAllObjects];
+    removeKeys = nil;
     [models removeAllObjects];
     models = nil;
 }
@@ -50,6 +53,7 @@
     self = [super init];
     if (self) {
         addKeyPaths = [[NSMutableArray alloc] init];
+        removeKeys = [[NSMutableArray alloc] init];
         models = [[NSMutableDictionary alloc] init];
         propertys = [[NSMutableArray alloc] init];
         lock = [[NSCondition alloc] init];
@@ -115,7 +119,7 @@
 
 - (void)removeBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath{
     [lock lock];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:models];
+    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:models];
     [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         PWBaseDataBridgeModel *model = obj;
         NSString *kp;
@@ -125,7 +129,13 @@
             kp = [self getKeyByKeyPath:keyPath observer:observer actionName:@"PWBaseDataBridgeModel_Block"];
         }
         if ([key isEqualToString:kp]) {
-            [self->models removeObjectForKey:key];
+            //            [self->models removeObjectForKey:key];
+            model.observer = nil;
+            model.actionName = nil;
+            model.block = nil;
+            model.beforeBlock = nil;
+            model.selector = NULL;
+            [self->removeKeys addObject:key];
         }
     }];
     [lock unlock];
@@ -134,12 +144,19 @@
 - (void)removeBridgeObserver:(NSObject *)observer{
     NSString *string = [NSString stringWithFormat:@"%p" , observer];
     [lock lock];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:models];
+    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:models];
     [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         NSString *kp = [self getKeyPathByKey:key];
         NSString *key2 = [key stringByReplacingOccurrencesOfString:kp withString:@""];
         if ([key2 containsString:string]) {
-            [self->models removeObjectForKey:key];
+            //            [self->models removeObjectForKey:key];
+            PWBaseDataBridgeModel *model = [self->models objectForKey:key];
+            model.observer = nil;
+            model.actionName = nil;
+            model.block = nil;
+            model.beforeBlock = nil;
+            model.selector = NULL;
+            [self->removeKeys addObject:key];
         }
     }];
     [lock unlock];
@@ -147,11 +164,18 @@
 
 - (void)removeBridgeForKeyPath:(NSString *)keyPath{
     [lock lock];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:models];
+    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:models];
     [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         NSString *kp = [self getKeyPathByKey:key];
         if ([kp isEqualToString:keyPath]) {
-            [self->models removeObjectForKey:key];
+            //            [self->models removeObjectForKey:key];
+            PWBaseDataBridgeModel *model = [self->models objectForKey:key];
+            model.observer = nil;
+            model.actionName = nil;
+            model.block = nil;
+            model.beforeBlock = nil;
+            model.selector = NULL;
+            [self->removeKeys addObject:key];
         }
     }];
     if ([addKeyPaths containsObject:keyPath]) {
@@ -166,7 +190,7 @@
 - (void)removeAllBridge{
     [lock lock];
     [models removeAllObjects];
-    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:addKeyPaths];
+    NSArray *array = [NSArray arrayWithArray:addKeyPaths];
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *key = obj;
         if (key) {
@@ -189,8 +213,8 @@
 
 - (void)cleanUnuseKeyPath{
     [lock lock];
-    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:addKeyPaths];
-    NSMutableArray *keys = [NSMutableArray arrayWithArray:[models allKeys]];
+    NSArray *array = [NSArray arrayWithArray:addKeyPaths];
+    NSArray *keys = [NSArray arrayWithArray:[models allKeys]];
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj1, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *key = obj1;
         __block BOOL isClean = YES;
@@ -209,16 +233,23 @@
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
     [lock lock];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+    });
     @autoreleasepool{
         id pra = [[change allKeys] containsObject:NSKeyValueChangeNewKey] ? change[NSKeyValueChangeNewKey] : [self->propertys containsObject:keyPath] ? [self valueForKeyPath:keyPath] : nil;
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:models];
+        //        @try {
+        NSDictionary *dict = [NSDictionary dictionaryWithDictionary:self->models];
         [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            if ([self->removeKeys containsObject:key]) {
+                return;
+            }
             NSString *kp = [self getKeyPathByKey:key];
             if ([kp isEqualToString:keyPath]) {
                 PWBaseDataBridgeModel *model = obj;
                 __strong typeof(model.observer) strongObserver = model.observer;
                 if (!model || !strongObserver) {
-                    [self->models removeObjectForKey:key];
+                    //                    [self->models removeObjectForKey:key];
                 }else{
                     dispatch_async(dispatch_get_main_queue(), ^(void){
                         id praResult = pra;
@@ -242,6 +273,19 @@
                 }
             }
         }];
+        NSArray *array = [NSArray arrayWithArray:removeKeys];
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            PWBaseDataBridgeModel *model = [self->models objectForKey:obj];
+            if (model != nil) {
+                [self->models removeObjectForKey:obj];
+            }
+            [self->removeKeys removeObject:obj];
+        }];
+        //        } @catch (NSException *exception) {
+        //            NSLog(@"%@", @"%@ observeValueForKeyPath is catch crash" . self.classForCoder);
+        //        } @finally {
+        //
+        //        }
     }
     [lock unlock];
 }
