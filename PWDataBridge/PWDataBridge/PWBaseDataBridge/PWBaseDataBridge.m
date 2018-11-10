@@ -17,6 +17,7 @@
     _block = nil;
     _observer = nil;
     _selector = NULL;
+    _removed = NULL;
 }
 
 @end
@@ -28,6 +29,8 @@
     NSMutableDictionary *models;
     NSMutableArray *propertys;
     NSCondition *lock;
+    
+    dispatch_semaphore_t semaphore;
 }
 
 
@@ -35,8 +38,9 @@
 @implementation PWBaseDataBridge
 
 - (void)dealloc{
-    [lock unlock];
-    lock = nil;
+//    [lock unlock];
+//    lock = nil;
+    NSLog(@"PWBaseDataBridge is dealloced : %@" , self.class);
     [self removeAllBridge];
     [addKeyPaths enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [self removeObserver:self forKeyPath:obj];
@@ -47,17 +51,22 @@
     removeKeys = nil;
     [models removeAllObjects];
     models = nil;
+    semaphore = NULL;
 }
 
 - (instancetype)init{
+    NSLog(@"PWBaseDataBridge is inited : %@" , self.class);
     self = [super init];
     if (self) {
         addKeyPaths = [[NSMutableArray alloc] init];
         removeKeys = [[NSMutableArray alloc] init];
         models = [[NSMutableDictionary alloc] init];
         propertys = [[NSMutableArray alloc] init];
-        lock = [[NSCondition alloc] init];
+//        lock = [[NSCondition alloc] init];
         [self getAllIvarList];
+        
+        semaphore = dispatch_semaphore_create(1);
+        
     }
     return self;
 }
@@ -67,10 +76,13 @@
 }
 
 - (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath correction:(PWBaseDataBridgeBeforeReturnBlock)correction action:(SEL)action{
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     if (!keyPath || !observer || !action) {
+        dispatch_semaphore_signal(semaphore);
         return;
     }
     if (![observer respondsToSelector:action]) {
+        dispatch_semaphore_signal(semaphore);
         return;
     }
     NSString *key = [self getKeyByKeyPath:keyPath observer:observer actionName:NSStringFromSelector(action)];
@@ -88,6 +100,9 @@
     model.actionName = NSStringFromSelector(action);
     model.selector = action;
     model.block = nil;
+    model.removed = NO;
+    [removeKeys removeObject:key];
+    dispatch_semaphore_signal(semaphore);
 }
 
 - (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath block:(PWBaseDataBridgeResultBlock)block{
@@ -95,10 +110,13 @@
 }
 
 - (void)addBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath correction:(PWBaseDataBridgeBeforeReturnBlock)correction block:(PWBaseDataBridgeResultBlock)block{
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     if (!keyPath || !observer) {
+        dispatch_semaphore_signal(semaphore);
         return;
     }
     if (!block && !correction) {
+        dispatch_semaphore_signal(semaphore);
         return;
     }
     NSString *key = [self getKeyByKeyPath:keyPath observer:observer actionName:@"PWBaseDataBridgeModel_Block"];
@@ -115,10 +133,14 @@
     model.beforeBlock = correction;
     model.block = block;
     model.actionName = nil;
+    model.removed = NO;
+    [removeKeys removeObject:key];
+    dispatch_semaphore_signal(semaphore);
 }
 
 - (void)removeBridgeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath{
-    [lock lock];
+//    [lock lock];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     NSDictionary *dict = [NSDictionary dictionaryWithDictionary:models];
     [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         PWBaseDataBridgeModel *model = obj;
@@ -130,20 +152,18 @@
         }
         if ([key isEqualToString:kp]) {
             //            [self->models removeObjectForKey:key];
-            model.observer = nil;
-            model.actionName = nil;
-            model.block = nil;
-            model.beforeBlock = nil;
-            model.selector = NULL;
+            model.removed = YES;
             [self->removeKeys addObject:key];
         }
     }];
-    [lock unlock];
+    dispatch_semaphore_signal(semaphore);
+//    [lock unlock];
 }
 
 - (void)removeBridgeObserver:(NSObject *)observer{
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     NSString *string = [NSString stringWithFormat:@"%p" , observer];
-    [lock lock];
+//    [lock lock];
     NSDictionary *dict = [NSDictionary dictionaryWithDictionary:models];
     [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         NSString *kp = [self getKeyPathByKey:key];
@@ -151,30 +171,24 @@
         if ([key2 containsString:string]) {
             //            [self->models removeObjectForKey:key];
             PWBaseDataBridgeModel *model = [self->models objectForKey:key];
-            model.observer = nil;
-            model.actionName = nil;
-            model.block = nil;
-            model.beforeBlock = nil;
-            model.selector = NULL;
+            model.removed = YES;
             [self->removeKeys addObject:key];
         }
     }];
-    [lock unlock];
+    dispatch_semaphore_signal(semaphore);
+//    [lock unlock];
 }
 
 - (void)removeBridgeForKeyPath:(NSString *)keyPath{
-    [lock lock];
+//    [lock lock];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     NSDictionary *dict = [NSDictionary dictionaryWithDictionary:models];
     [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         NSString *kp = [self getKeyPathByKey:key];
         if ([kp isEqualToString:keyPath]) {
             //            [self->models removeObjectForKey:key];
             PWBaseDataBridgeModel *model = [self->models objectForKey:key];
-            model.observer = nil;
-            model.actionName = nil;
-            model.block = nil;
-            model.beforeBlock = nil;
-            model.selector = NULL;
+            model.removed = YES;
             [self->removeKeys addObject:key];
         }
     }];
@@ -184,11 +198,13 @@
             [addKeyPaths removeObject:keyPath];
         }
     }
-    [lock unlock];
+    dispatch_semaphore_signal(semaphore);
+//    [lock unlock];
 }
 
 - (void)removeAllBridge{
-    [lock lock];
+//    [lock lock];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     [models removeAllObjects];
     NSArray *array = [NSArray arrayWithArray:addKeyPaths];
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -198,7 +214,8 @@
             [self->addKeyPaths removeObject:key];
         }
     }];
-    [lock unlock];
+    dispatch_semaphore_signal(semaphore);
+//    [lock unlock];
 }
 
 - (NSString *)getKeyPathByKey:(NSString *)key{
@@ -212,7 +229,8 @@
 }
 
 - (void)cleanUnuseKeyPath{
-    [lock lock];
+//    [lock lock];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     NSArray *array = [NSArray arrayWithArray:addKeyPaths];
     NSArray *keys = [NSArray arrayWithArray:[models allKeys]];
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj1, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -229,13 +247,12 @@
             [self removeObserver:self forKeyPath:key];
         }
     }];
-    [lock unlock];
+    dispatch_semaphore_signal(semaphore);
+//    [lock unlock];
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
-    [lock lock];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-    });
+//    [lock lock];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     @autoreleasepool{
         id pra = [[change allKeys] containsObject:NSKeyValueChangeNewKey] ? change[NSKeyValueChangeNewKey] : [self->propertys containsObject:keyPath] ? [self valueForKeyPath:keyPath] : nil;
         //        @try {
@@ -248,8 +265,12 @@
             if ([kp isEqualToString:keyPath]) {
                 PWBaseDataBridgeModel *model = obj;
                 __strong typeof(model.observer) strongObserver = model.observer;
-                if (!model || !strongObserver) {
+                if (!model || !strongObserver || model.removed) {
                     //                    [self->models removeObjectForKey:key];
+                    if (model) {
+                        model.removed = YES;
+                        [self->removeKeys addObject:key];
+                    }
                 }else{
                     dispatch_async(dispatch_get_main_queue(), ^(void){
                         id praResult = pra;
@@ -287,7 +308,8 @@
         //
         //        }
     }
-    [lock unlock];
+    dispatch_semaphore_signal(semaphore);
+//    [lock unlock];
 }
 
 - (void)sendSignalWith:(NSString *)key value:(id)value{

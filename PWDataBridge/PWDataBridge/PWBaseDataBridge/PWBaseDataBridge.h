@@ -18,6 +18,7 @@ typedef void(^PWBaseDataBridgeResultBlock)(id value);
 @property (nonatomic , assign) SEL selector;
 @property (nonatomic , copy) PWBaseDataBridgeResultBlock block;
 @property (nonatomic , copy) PWBaseDataBridgeBeforeReturnBlock beforeBlock;
+@property (nonatomic , assign) BOOL removed;
 @end
 
 @interface PWBaseDataBridge : NSObject{
