@@ -40,7 +40,7 @@
 - (void)dealloc{
 //    [lock unlock];
 //    lock = nil;
-    NSLog(@"PWBaseDataBridge is dealloced : %@" , self.class);
+//    NSLog(@"PWBaseDataBridge is dealloced : %@" , self.class);
     [self removeAllBridge];
     [addKeyPaths enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [self removeObserver:self forKeyPath:obj];
@@ -55,7 +55,7 @@
 }
 
 - (instancetype)init{
-    NSLog(@"PWBaseDataBridge is inited : %@" , self.class);
+//    NSLog(@"PWBaseDataBridge is inited : %@" , self.class);
     self = [super init];
     if (self) {
         addKeyPaths = [[NSMutableArray alloc] init];
