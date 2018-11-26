@@ -33,7 +33,7 @@
 
 + (void)addBridgeObserver:(NSObject *)observer forTopic:(NSString *)topic block:(PWBaseDataBridgeResultBlock)block{
     [[PWMessageQueueDataBridge shareBridge] addBridgeObserver:observer forKeyPath:topic block:block];
-}
+}   
 
 + (void)removeBridgeObserver:(NSObject *)observer forTopic:(NSString *)topic{
     [[PWMessageQueueDataBridge shareBridge] removeBridgeObserver:observer forKeyPath:topic];
