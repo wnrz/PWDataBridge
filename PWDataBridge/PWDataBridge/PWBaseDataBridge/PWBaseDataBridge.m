@@ -231,8 +231,12 @@
 }
 
 - (NSString *)getKeyPathByKey:(NSString *)key{
-    NSString *keyPath = [key componentsSeparatedByString:@"||"][0];
-    return keyPath;
+    NSArray *array = [key componentsSeparatedByString:@"||"];
+    if (array != nil && array.count > 0) {
+        NSString *keyPath = [key componentsSeparatedByString:@"||"][0];
+        return keyPath;
+    }
+    return @"";
 }
 
 - (NSString *)getKeyByKeyPath:(NSString *)keyPath observer:(id)observer actionName:(NSString *)actionName{
