@@ -178,7 +178,8 @@
             NSString *key2 = [key stringByReplacingOccurrencesOfString:kp withString:@""];
             if ([key2 containsString:string]) {
                 //            [self->models removeObjectForKey:key];
-                PWBaseDataBridgeModel *model = [self->models objectForKey:key];
+//                PWBaseDataBridgeModel *model = [self->models objectForKey:key];
+                PWBaseDataBridgeModel *model = obj;
                 model.removed = YES;
                 [self->removeKeys addObject:key];
             }
@@ -197,7 +198,8 @@
             NSString *kp = [self getKeyPathByKey:key];
             if ([kp isEqualToString:keyPath]) {
                 //            [self->models removeObjectForKey:key];
-                PWBaseDataBridgeModel *model = [self->models objectForKey:key];
+//                PWBaseDataBridgeModel *model = [self->models objectForKey:key];
+                PWBaseDataBridgeModel *model = obj;
                 model.removed = YES;
                 [self->removeKeys addObject:key];
             }
